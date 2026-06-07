@@ -229,6 +229,17 @@ export default function Home() {
           </div>
         )}
         <TopicInput onGenerate={handleGenerateCopy} isLoading={false} />
+        <footer
+          style={{
+            marginTop: 48,
+            paddingBottom: 24,
+            textAlign: 'center',
+            fontSize: 13,
+            color: 'rgba(255,255,255,0.4)',
+          }}
+        >
+          produced by Claude x David
+        </footer>
       </div>
     </div>
   );
