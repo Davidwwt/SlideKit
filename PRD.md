@@ -37,7 +37,7 @@ AWS EC2 instance, self-hosted.
 | Frontend | Next.js (React) | Card rendering, inline editing, image export |
 | Backend | Next.js API Routes | Endpoint layer, file handling |
 | AI Agent | Claude Code (server-side) | Content generation, image orchestration, web research |
-| Image Gen | Google Gemini (`gemini-3.1-flash-image-preview` via `@google/genai` SDK) | AI image generation for covers and select inner pages |
+| Image Gen | Google Gemini (`gemini-2.0-flash-exp-image-generation` via `@google/genai` SDK) | AI image generation for covers and select inner pages |
 | Image Export | html2canvas | Convert rendered HTML cards to PNG |
 | File Storage | Local filesystem (EC2) | Uploaded reference images, generated images, exported PNGs |
 
@@ -108,6 +108,8 @@ AWS EC2 instance, self-hosted.
 
 **Description**: The core intelligence layer. Claude Code Agent receives the topic and produces a complete card set.
 
+**Implementation Note**: The agent is invoked via `claude -p` subprocess, reusing the local Claude Code CLI session auth — no `ANTHROPIC_API_KEY` is needed. Web research tools are currently disabled; the agent generates content from its training knowledge of public information.
+
 **Agent System Prompt Context** (embed in the Claude Code agent configuration):
 
 ```
@@ -175,11 +177,11 @@ OUTPUT FORMAT: Respond with valid JSON only, no markdown fences, no preamble.
 }
 ```
 
-**Web Research**: The Agent should use web search to gather current public information about the topic before generating content. Research sources include: brand social media accounts, news articles, public financial data, industry reports.
+**Content Research**: The Agent generates content from its training knowledge of public information. Research sources include: brand social media accounts, news articles, public financial data, industry reports. (Note: live web search tools are currently disabled in the agent subprocess invocation.)
 
 ### 3.3 F3 — AI Image Generation (Gemini Image Generation)
 
-**Description**: Claude Code Agent calls Google Gemini's native image generation (`gemini-3.1-flash-image-preview`) to generate images for cards that need them.
+**Description**: Claude Code Agent calls Google Gemini's native image generation (`gemini-2.0-flash-exp-image-generation`) to generate images for cards that need them.
 
 **Integration**:
 - Uses `@google/genai` Node.js SDK
@@ -191,7 +193,7 @@ OUTPUT FORMAT: Respond with valid JSON only, no markdown fences, no preamble.
 **Environment Variables**:
 ```
 GOOGLE_API_KEY=<Google AI API key>
-GEMINI_IMAGE_MODEL=gemini-3.1-flash-image-preview
+GEMINI_IMAGE_MODEL=gemini-2.0-flash-exp-image-generation
 ```
 
 **SDK Installation**:
@@ -528,10 +530,11 @@ Single-page application with three states:
 The Claude Code Agent runs server-side on the EC2 instance. It is invoked programmatically by the Next.js API routes.
 
 **Required Tools/Capabilities**:
-- Web search (for researching topics)
-- File read (for analyzing uploaded reference images)
+- Knowledge of public information (training data; live web search not enabled in current implementation)
 - `@google/genai` SDK (for calling Gemini image generation)
 - JSON output (structured card data)
+
+**Auth**: The agent runs via `claude -p` subprocess using local Claude Code CLI session credentials. No `ANTHROPIC_API_KEY` environment variable is needed.
 
 ### 6.2 Agent Invocation Pattern
 
@@ -661,12 +664,10 @@ slidekit/
 ## 8. Environment Variables
 
 ```bash
-# Claude Code / Anthropic
-ANTHROPIC_API_KEY=sk-ant-...
-
 # Google Gemini (Image Generation)
+# Claude Code agent uses local CLI session auth — no ANTHROPIC_API_KEY needed
 GOOGLE_API_KEY=<Google AI API key>
-GEMINI_IMAGE_MODEL=gemini-3.1-flash-image-preview
+GEMINI_IMAGE_MODEL=gemini-2.0-flash-exp-image-generation
 
 # App Config
 NODE_ENV=production
