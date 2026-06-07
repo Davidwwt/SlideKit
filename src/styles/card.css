@@ -1,0 +1,215 @@
+/* ── Card Inner Layout ───────────────────────────────────── */
+
+.card-padding {
+  padding: 56px 56px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Decorative elements */
+.card-divider {
+  width: 72px;
+  height: 3px;
+  background: var(--card-accent);
+  margin: 20px 0;
+  flex-shrink: 0;
+}
+
+.card-divider-full {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--card-accent) 0%, transparent 100%);
+  margin: 28px 0;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+/* Series tag */
+.series-tag {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--card-accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+/* ── Typography ──────────────────────────────────────────── */
+
+.card-headline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 1.18;
+  color: var(--card-cream);
+  letter-spacing: -0.01em;
+}
+
+.card-headline-sm {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.22;
+  color: var(--card-cream);
+}
+
+.card-subheadline {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--card-accent);
+  line-height: 1.45;
+  margin-top: 18px;
+}
+
+.card-body {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 26px;
+  line-height: 1.55;
+  color: var(--card-cream);
+  opacity: 0.92;
+}
+
+/* ── Data Callout Box ───────────────────────────────────── */
+
+.data-callout {
+  border: 1px solid var(--card-accent);
+  border-left: 4px solid var(--card-accent);
+  padding: 22px 26px;
+  margin: 24px 0;
+  background: rgba(200, 149, 108, 0.08);
+  border-radius: 2px;
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--card-cream);
+  line-height: 1.45;
+  flex-shrink: 0;
+}
+
+/* ── Bullet Points ──────────────────────────────────────── */
+
+.bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.bullet-list li {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 24px;
+  line-height: 1.5;
+  color: var(--card-cream);
+  padding-left: 26px;
+  position: relative;
+}
+
+.bullet-list li::before {
+  content: '·';
+  color: var(--card-accent);
+  font-size: 36px;
+  position: absolute;
+  left: 0;
+  top: -8px;
+  line-height: 1;
+}
+
+/* ── Footer ─────────────────────────────────────────────── */
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: auto;
+  padding-top: 24px;
+  flex-shrink: 0;
+}
+
+.card-footer-note {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 18px;
+  color: var(--card-muted);
+  max-width: 70%;
+}
+
+.card-page-number {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 18px;
+  color: var(--card-muted);
+  letter-spacing: 0.05em;
+}
+
+/* ── Image Placements ────────────────────────────────────── */
+
+.img-background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+}
+
+.img-top-half {
+  width: 100%;
+  height: 34%;
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+
+.img-side {
+  width: 42%;
+  object-fit: cover;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ── Cover card specifics ────────────────────────────────── */
+
+.cover-account-name {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 20px;
+  color: var(--card-accent);
+  letter-spacing: 0.06em;
+}
+
+.cover-read-time {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 18px;
+  color: var(--card-muted);
+}
+
+/* ── CTA card specifics ─────────────────────────────────── */
+
+.cta-main {
+  font-family: 'Playfair Display', serif;
+  font-size: 54px;
+  font-weight: 700;
+  color: var(--card-cream);
+  line-height: 1.22;
+  text-align: center;
+}
+
+.cta-follow {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 28px;
+  color: var(--card-accent);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.cta-teaser {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 22px;
+  color: var(--card-muted);
+  text-align: center;
+}
